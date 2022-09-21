@@ -41,10 +41,24 @@
     }
 
 
+    function conectarDB() {
+        const abrirConexion = window.indexedDB.open('crm', 1);
+    
+        abrirConexion.onerror = () => {
+            console.log('Hubo un error');
+        }
+    
+        abrirConexion.onsuccess = () => {
+            DB = abrirConexion.result;
+            console.log('La base ya está creada');
+        }
+    }
+
+    
     function crearNuevoCliente(cliente) {
-    const transaction = DB.transaction(['crm'], 'readwrite');
-    const objectStore = transaction.objectStore('crm');
-    objectStore.add(cliente);
+        const transaction = DB.transaction(['crm'], 'readwrite');
+        const objectStore = transaction.objectStore('crm');
+        objectStore.add(cliente);
 
     transaction.onerror = () => {
         console.log('Hubo un error');
