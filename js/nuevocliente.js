@@ -1,46 +1,44 @@
 (function() {
 
     let DB;
-const formulario = document.getElementById('formulario');
+    const formulario = document.getElementById('formulario');
 
-document.addEventListener('DOMContentLoaded', () => {
-    conectarDB();
+    document.addEventListener('DOMContentLoaded', () => {
+        conectarDB();
 
-    formulario.addEventListener('submit', validarCliente);
-});
+        formulario.addEventListener('submit', validarCliente);
+    });
 
 
 
-function validarCliente(e) {
-    e.preventDefault();
+    function validarCliente(e) {
+        e.preventDefault();
 
-    // Leer todos los inputs
-    const nombre = document.getElementById('nombre').value;
-    const email = document.getElementById('email').value;
-    const telefono = document.getElementById('telefono').value;
-    const empresa = document.getElementById('empresa').value;
+        // Leer todos los inputs
+        const nombre = document.getElementById('nombre').value;
+        const email = document.getElementById('email').value;
+        const telefono = document.getElementById('telefono').value;
+        const empresa = document.getElementById('empresa').value;
 
-    if(nombre === '' || email === '' || telefono === '' || telefono.length >= 11 || empresa === '') {
-        imprimirAlerta('Todos los campos son obligatorios', 'error')
+        if(nombre === '' || email === '' || telefono === '' || telefono.length >= 11 || empresa === '') {
+            imprimirAlerta('Todos los campos son obligatorios', 'error')
 
-        return;
-    }
-
-        // Crear un objeto con la información
-        const cliente = {
-            nombre,
-            email,
-            telefono,
-            empresa,
-            id: Date.now()
+            return;
         }
 
-            crearNuevoCliente(cliente);
-            console.log(cliente);
+            // Crear un objeto con la información
+            const cliente = {
+                nombre,
+                email,
+                telefono,
+                empresa,
+                id: Date.now()
+            }
 
-}
+                crearNuevoCliente(cliente);
+                console.log(cliente);
 
-
+    }
 
 
     function crearNuevoCliente(cliente) {
