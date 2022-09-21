@@ -1,6 +1,8 @@
 (function(){
 
     const listadoClientes = document.querySelector('#listado-clientes');
+    let confirmar;
+    let idEliminar;
 
     document.addEventListener('DOMContentLoaded', () => {
         crearDB();
@@ -14,27 +16,46 @@
 
     function eliminarRegistro(e) {
         if(e.target.classList.contains('eliminar')) {
-            const idEliminar = Number(e.target.dataset.cliente);
-
-            const confirmar = confirm('¿Deseas eliminar este cliente?');
-            if(confirmar) {
-                const transaction = DB.transaction(['crm'], 'readwrite');
-                const objectStore = transaction.objectStore('crm');
-                
-                objectStore.delete(idEliminar);
-
-                transaction.oncomplete = function () {
-                    console.log('Se eliminó con éxito...')
+            idEliminar = Number(e.target.dataset.cliente);
+            
+            Swal.fire({
+                title: '¿Eliminar Cliente?',
+                text: "Esta acción no se puede revertir",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: 'green',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, Eliminar',
+                cancelButtonText: 'Cancelar'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    eliminarDB();
                     e.target.parentElement.parentElement.remove();
+                  Swal.fire(
+                    'Eliminado!',
+                    'El cliente ha sido eliminado',
+                    'success'
+                  )
                 }
-
-                transaction.onerror = function () {
-                    console.log('Se eliminó con éxito...')
-                }
-
-            } 
+              })
     }
 }
+
+    function eliminarDB() {
+        const transaction = DB.transaction(['crm'], 'readwrite');
+        const objectStore = transaction.objectStore('crm');
+        
+        objectStore.delete(idEliminar);
+
+        transaction.oncomplete = function(e) {
+            console.log('Se eliminó con éxito...')
+            e.target.parentElement.parentElement.remove();
+        }
+
+        transaction.onerror = function () {
+            console.log('No se eliminó...')
+        }
+    }
 
     // Crea la BD
     function crearDB() {
