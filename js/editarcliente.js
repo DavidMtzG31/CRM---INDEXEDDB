@@ -54,7 +54,7 @@
         objectStore.put(clienteActualizado);
 
         transaction.oncomplete = () => {
-            console.log('Actualizaco correctamente');
+
         }
 
         transaction.onerror = () => {
