@@ -54,16 +54,25 @@
         objectStore.put(clienteActualizado);
 
         transaction.oncomplete = () => {
-
+            Swal.fire({
+                icon: 'success',
+                title: 'Cliente Actualizado',
+                showConfirmButton: false,
+                timer: 1500
+              })
+    
+            formulario.reset();
         }
 
         transaction.onerror = () => {
-            imprimirAlerta('Algo malió sal :(', 'error');
+            Swal.fire({
+                icon: 'error',
+                title: 'Algo salió mal',
+                showConfirmButton: false,
+                timer: 1500
+              })
         }
 
-        imprimirAlerta('El cliente se ha actualizado');
-
-        formulario.reset();
     }
  
     function obtenerCliente(id) {
