@@ -34,7 +34,8 @@
                   Swal.fire(
                     'Eliminado!',
                     'El cliente ha sido eliminado',
-                    'success'
+                    'success',
+                     showConfirmButton: false,
                   )
                 }
               })
