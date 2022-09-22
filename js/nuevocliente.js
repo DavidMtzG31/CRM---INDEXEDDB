@@ -62,11 +62,21 @@
 
     transaction.onerror = () => {
         console.log('Hubo un error');
-        imprimirAlerta('Error al agregar, el correo ya está registrado', 'error');
+        Swal.fire({
+            icon: 'error',
+            title: 'El correo ya está registrado',
+            showConfirmButton: false,
+            timer: 1500
+          })
     }
 
     transaction.oncomplete = () => {
-        imprimirAlerta('Cliente agregado correctamente');
+        Swal.fire({
+            icon: 'success',
+            title: 'Cliente agregado exitosamente',
+            showConfirmButton: false,
+            timer: 1500
+          })
         console.log('Cliente agregado');
         formulario.reset();
     }
